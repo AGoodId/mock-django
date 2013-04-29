@@ -65,7 +65,7 @@ def QuerySetMock(model, *return_value):
     m = SharedMock(reserved=['count', 'exists'])
     m.__start = None
     m.__stop = None
-    m.__iter__.side_effect = lambda: iter(m.iterator())
+    m.__iter__.side_effect = make_iterator(m)
     m.__getitem__.side_effect = make_getitem(m)
     m.model = model
     m.get = make_get(m, actual_model)
@@ -77,5 +77,5 @@ def QuerySetMock(model, *return_value):
     # Note since this is a SharedMock, *all* auto-generated child
     # attributes will have the same side_effect ... might not make
     # sense for some like count().
-    m.iterator.side_effect = make_iterator(m)
+    m.iterator.return_value = m
     return m
