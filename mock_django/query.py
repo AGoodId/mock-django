@@ -77,5 +77,5 @@ def QuerySetMock(model, *return_value):
     # Note since this is a SharedMock, *all* auto-generated child
     # attributes will have the same side_effect ... might not make
     # sense for some like count().
-    m.iterator.return_value = m
+
     return m
