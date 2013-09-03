@@ -8,14 +8,16 @@ mock_django.query
 import copy
 
 import mock
+from django.conf import settings
 from .shared import SharedMock
 
 __all__ = ('QuerySetMock',)
 
+EXTRA_QUERYSET_RETURNING_METHODS = getattr(settings, 'EXTRA_QUERYSET_RETURNING_METHODS', [])
 QUERYSET_RETURNING_METHODS = ['filter', 'exclude', 'order_by', 'reverse',
                               'distinct', 'none', 'all', 'select_related',
                               'prefetch_related', 'defer', 'only', 'using',
-                              'select_for_update']
+                              'select_for_update'] + EXTRA_QUERYSET_RETURNING_METHODS
 
 
 def QuerySetMock(model, *return_value):
